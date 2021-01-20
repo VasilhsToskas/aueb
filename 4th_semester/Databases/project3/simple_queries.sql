@@ -114,7 +114,7 @@ GROUP BY  "Neighbourhoods".neighbourhood,"Listings".neighbourhood_cleansed;
 10
 For every area in Neighbourhoods table, it calculates the average number of ratings,
 for the houses that have been rate at least once in 2020 and their host identity has been verified.
-45 rows ( οσα εχει το table Neighbourhoods)
+45 rows 
 */
 SELECT "Neighbourhoods".neighbourhood, ROUND(AVG("Listings".number_of_reviews))
 FROM "Neighbourhoods"
