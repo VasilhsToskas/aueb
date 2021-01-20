@@ -11,8 +11,7 @@ WHERE "Calendar".date = '2020-03-18' AND "Calendar".available='t' AND "Calendar"
 
 /*
 2
-Βρίσκει τις εγγραφές δωματίων που υπάρχουν στο calendar για τον Μάρτη του 2020 , 
-στις οποίες ο οικοδεσπότης παρείχε government id  στα στοιχεία του (δηλαδη το host_verification του δωματίου περιέχει το 'government_id')
+Selects the room that exist for March 2020 , in which the host has government id in his room's data. (room's host_verification has 'government_id')
 61080
 */
 SELECT "Listings".id,"Calendar".date,"Calendar".date,"Listings".host_verifications
@@ -46,8 +45,9 @@ ORDER BY "Listings".id;
 
 /*
 5
-Selects the ratings that  Βρίσκει τις αξιολογήσεις που έγιναν τον Μάιο του 2020 για σπίτια με τουλάχιστον 2 υπνοδωμάτια και τουλάχιστον 5 κρεβάτια.
-(ταξινομημένα με βάση το id του σπιτιού)
+
+Selects the ratings that occured in May 2020 for houses with at least 2 bedrooms and 5 beds.
+(sorted by room/house id)
 216 rows 
 */
 SELECT "Listings".id,"Reviews".id,"Reviews".date,"Listings".neighbourhood, "Listings".price
@@ -59,9 +59,9 @@ ORDER BY "Listings".id;
 
 /*
 6
-Βρίσκει τις αξιολογήσεις που έγιναν το απο την 1η Γενάρη του 2020 για σπίτια-δωμάτια στην περιοχή Γκάζι ,
-τα οποία έχουν ευέλικτη πολιτική ακυρώσεων και δεν χρειάζονται κατάθεση εγγύησης .(έχουν κατάθεση εγγύησης ίση με $0.00, ΔΕΝ συνυπολογίζονται όσα δεν παρέχουν πληροφιορίες για την κατάθεση εγγύησης) 
-(ταξινομημένα με βάση το id του σπιτιού)
+Select the ratings that occured at 1/1/2020 for homes and rooms in Gazi area ,
+which have a flexible cancelation policy and done need a deposit guarantee. (their deposit guarantee is $0.00, we dont count houses that give no information about their deposit guarantee )
+(stored by room/home id) 
 29 rows
 */
 SELECT "Listings".id,"Reviews".id,"Reviews".date
@@ -73,8 +73,7 @@ ORDER BY "Listings".id;
 
 /*
 7
-Βρίσκει τις αξιολογήσεις που έγιναν τον Μάρτη του 2020 για τα σπίτια δωμάτια που επιτρέπουν κατοικίδια στις ανέσεις (amenities).
-(ταξινομημένα με βάση το id του σπιτιού)
+Select the ratings tha occured in March 2020 for rooms/houses tha allow pets.(sorted by room/home id)
 416 rows 
 */
 SELECT "Listings".id,"Reviews".id,"Reviews".date
@@ -87,9 +86,9 @@ ORDER BY "Listings".id;
 
 /*
 8
-Βρίσκει τα σπίτια-δωμάτια που αξιολογήθηκαν τον Μάρτη του 2020 και υπολογίζει το πλήθος των αξιολογήσεων που είχαν εκείνο το μήνα 
-καθώς και την πρώτη και την τελευταία αξιολόγηση που είχαν μεσα στο μήνα .
-(ταξινομημένα με βάση το id του σπιτιού)
+Selects the rooms/houses that were rated in March 2020 and calculates tha average number of rating they had that month,
+and the first and last rating they had in March.(only the date)
+(sorted by room/house id)
 2200 rows
 */
 SELECT "Reviews".listing_id,COUNT(*),MIN("Reviews".date),MAX("Reviews".date)
@@ -100,9 +99,9 @@ ORDER BY "Reviews".listing_id;
 
 /*
 9
-Για κάθε περιοχή του table Neighbourhoods , υπολογίζει το πλήθος των σπιτιών που έχουν περισσότερα απο 10 κρεβάτια και το μέγιστο πλήθος κρεβατιών
-(Για τις περιοχές που δεν έχουν σπίτι με >10 κρεβάτια , εμφανίζει απλά το όνομά τους)
-45 rows ( οσα εχει το table Neighbourhoods)
+For every area in Neighbourhoods table , it counts the number of houses that have more that 10 beds and show's the maximum number of beds in each area.
+(It also selects the name of the neigbourhoods tha dont have a house with more than 10 beds)
+45 rows 
 */
 SELECT "Neighbourhoods".neighbourhood,"Listings".neighbourhood_cleansed,COUNT(*), MAX("Listings".beds)
 FROM "Neighbourhoods"
@@ -113,8 +112,8 @@ GROUP BY  "Neighbourhoods".neighbourhood,"Listings".neighbourhood_cleansed;
 
 /*
 10
-Για κάθε περιοχή του table Neighbourhoods, υπολογίζει το μέσο πλήθος αξιολογήσεων ,
-για τα σπίτια όπου η τελευταία αξιολόγηση έγινε απο την 1η γενάρη 2020 και μετά , και έχει επαληθευτεί η ταυτότητα του οικοδεσπότη τους.
+For every area in Neighbourhoods table, it calculates the average number of ratings,
+for the houses that have been rate at least once in 2020 and their host identity has been verified.
 45 rows ( οσα εχει το table Neighbourhoods)
 */
 SELECT "Neighbourhoods".neighbourhood, ROUND(AVG("Listings".number_of_reviews))
