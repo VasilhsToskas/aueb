@@ -1,6 +1,6 @@
 /*
-Βρίσκει τα δωμάτια των οποίων η ακριβής τοποθεσία είναι γνωστή και η συντεταγμένη  geometry_coordinates_0_0_81_0 της περιοχής τους δεν είναι null .
-Στη συνέχεια τα ταξινομεί σε αύξουσα σειρά με βάση το listing_id.
+Finds the rooms that have an exact location and the coordinate geometry_coordinates_0_0_81_0 of their location is not null .
+Then it sorts them by listing id.
 2622 rows
 */
 
@@ -14,7 +14,7 @@ ORDER BY "Location".listing_id ;
 
 
 /*
-Υπολογίζει τη μέση τιμή availability_30  για κάθε περιοχή περιοχή για τα σπίτια που έχουν πάνω απο 100 αξιολογήσεις.
+Calculates the average availability_30 price for each area for the houses that have been rated more than 100 times
 45 rows
 */
 
@@ -32,9 +32,9 @@ GROUP BY  "Location".neighbourhood_cleansed;
 
 
 /*
-Βρίσκει τους φιλοξενούμενους ανά κρεβάτι που επιτρέπει ο κάθε οικοδεσπότης (σε όλα τα σπίτια του μαζί) 
-και εμφάνιζει τους οικοδεσπότες που επιτρέπουν τουλάχιστον 2 φιλοξενούμενους για κάθε κρεβάτι που παρέχουν 
-(η συνθήκη sum(beds)>0 υπάρχει για να μην γίνει διαίρεση με το μηδέν)
+Finds the guests allowed by the host per bed (in all his/hers houses)
+and shows the guests that allow at least 2 guests per bed 
+(sum(beds)>0 exists in order to avoid dividing by 0)
 3736 rows
 */
 
@@ -48,9 +48,9 @@ HAVING   sum(beds)>0 AND (Round(Sum(accommodates)/sum(beds)))>=2 ;
 
 
 /*
-Βρίσκει τα σπίτια που έχουν γνωστή ακριβής τοποθεσία
-και στη συνέχεια βρίσκει την μέση τιμή , τη μέγιστη τιμή και την ελάχιστη τιμή ενοικίασης για κάθε περιοχή
-και τα επιστρέφει για όσες περιοχές έχουν μέση τιμή μεγαλύτερη απο 50 και μικρότερη απο 100. 
+Finds the houses with known location 
+and then calculates the average price , the maximum price ,and the minimun rent price for each area
+and shows the areas with 50 < average rent price < 100.
 20 rows
 */
 
@@ -69,7 +69,7 @@ HAVING Round (AVG("Price".price)) <100 AND (AVG("Price".price)) >50;
 
 
 /*
-Για κάθε περιοχή , βρίσκει το πλήθος των ενοικιαζόμενων που έχουν κατάθεση εγγύησης μικρότερη των 20 ευρώ.
+For each area , it finds the number of houses/rooms that have deposit guarantee less than 20.
 45 rows
 */
 
