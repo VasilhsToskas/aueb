@@ -26,7 +26,7 @@ The order of the lines will be random , but the lines must not interfere with ea
 At the end of the execution, print the average and the maximun order completion time and average and the maximun order "getting" cold time.
 
 
-Code structure: The first string of you program will create one string per order(total strings: Ncust), to witch you will transfer a string number(from 1 to Ncust) in order to defferentiate them. Then , every string will execute the above mentioned step until the order is completed and then it will print the appropriate output.Lastly, the first string will print the ending output.You will need the following:
+Code structure: The first string of your program will create one string per order(total strings: Ncust), to which you will transfer a string number(from 1 to Ncust) in order to defferentiate them. Then , every string will execute the above mentioned step until the order is completed and then it will print the appropriate output.Lastly, the first string will print the ending output.You will need the following:
 -An integer and a mutex to count the number of available cooks and a variable to synchronize orders and cooks , in order to block the orders when there are no available cooks.(you will treat ovens and delivery employees in a counterpart way)
 -Variables and mutexes for completion times and getting cold times.
 -A mutex to lock the screen when the output is being printed.
